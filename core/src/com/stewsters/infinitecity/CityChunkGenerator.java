@@ -84,6 +84,10 @@ public class CityChunkGenerator {
         List<Rect> lots = RectSubdivider.divide(whole, minSize);
 
         for (Rect lot : lots) {
+
+
+            BuildingTypes buildingTypes = MatUtils.randVal(BuildingTypes.values());
+
             // ySize in floors
             int totalFloors = MatUtils.getIntInRange(1, 8);
 
@@ -96,9 +100,21 @@ public class CityChunkGenerator {
                     lot.x2 - extendedWalk,
                     lot.y2 - extendedWalk);
 
+
+            if (buildingTypes.cornerPillar) {
+
+                int top = (totalFloors + 1) * 3;
+                fillColumn(foundation.x1, foundation.y1, groundHeight, top);
+                fillColumn(foundation.x2, foundation.y1, groundHeight, top);
+                fillColumn(foundation.x1, foundation.y2, groundHeight, top);
+                fillColumn(foundation.x2, foundation.y2, groundHeight, top);
+            }
+
             for (int floor = 0; floor < totalFloors; floor++) {
 
-                wall(foundation, groundHeight + (floor * 3) + 1, 1, (byte) 1);
+                if (buildingTypes.wall != 0) {
+                    wall(foundation, groundHeight + (floor * 3) + 1, buildingTypes.wall, (byte) 1);
+                }
 //                wall(foundation, groundHeight + (floor * 3) + 2, (byte) 1);
                 solidLevel(foundation, groundHeight + (floor * 3) + 3, (byte) 1);
             }
@@ -108,6 +124,12 @@ public class CityChunkGenerator {
         // make foundations
 
     }
+
+    private void fillColumn(int x, int y, int z, int height) {
+        fillBlock(new RectPrism(x, y, z, x, y, height), (byte) 1);
+
+    }
+
 
     private void fillBlock(RectPrism prism, byte tileType) {
 

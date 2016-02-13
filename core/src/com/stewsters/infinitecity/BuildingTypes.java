@@ -1,0 +1,22 @@
+package com.stewsters.infinitecity;
+
+public enum BuildingTypes {
+
+    BARE(0, true),
+    ONE_HIGH(1 , true),
+    FULL_WITH_WINDOWS(2, false),
+    FILL_WALLED_IN(2,false);
+    // Bare with supports - construction
+    // one high with supports -
+    // full with holes
+    // full walled in
+
+    BuildingTypes(int wallHeight, boolean cornerPillar) {
+        this.wall = wallHeight;
+        this.cornerPillar=cornerPillar;
+    }
+
+
+    public final int wall;
+    public final boolean cornerPillar;
+}
