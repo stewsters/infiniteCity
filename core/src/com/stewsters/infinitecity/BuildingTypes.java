@@ -3,17 +3,20 @@ package com.stewsters.infinitecity;
 public enum BuildingTypes {
 
     BARE(0, true),
-    ONE_HIGH(1 , true),
+    ONE_HIGH(1, true),
     FULL_WITH_WINDOWS(2, false),
-    FILL_WALLED_IN(2,false);
+    FILL_WALLED_IN(2, false),
+    OLD_CHURCH(1, false);
     // Bare with supports - construction
     // one high with supports -
     // full with holes
     // full walled in
 
+    public int maxHeight = 8;
+
     BuildingTypes(int wallHeight, boolean cornerPillar) {
         this.wall = wallHeight;
-        this.cornerPillar=cornerPillar;
+        this.cornerPillar = cornerPillar;
     }
 
 
